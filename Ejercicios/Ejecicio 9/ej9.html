@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejercicio 9</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f8f9fa;
+        color: #222;
+        margin: 0;
+        padding: 1rem;
+      }
+      h1 {
+        margin-top: 0;
+      }
+      .panel {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 0.75rem;
+      }
+      button {
+        font-size: 0.95rem;
+        padding: 0.85rem 1rem;
+        border: 1px solid #ccc;
+        background: #fff;
+        cursor: pointer;
+        border-radius: 0.35rem;
+        transition: background 0.2s ease, transform 0.15s ease;
+      }
+      button:hover {
+        background: #e9f5ff;
+        transform: translateY(-1px);
+      }
+      section {
+        margin-bottom: 1rem;
+      }
+      .note {
+        margin: 0 0 1rem;
+        padding: 1rem;
+        background: #fff;
+        border: 1px solid #dde2e6;
+        border-radius: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Ejercicio 9</h1>
+    <div class="note">
+      <p>Haz clic en un botón para ejecutar cada caso de JavaScript. Abre la consola del navegador si quieres ver los resultados adicionales.</p>
+    </div>
+
+    <section>
+      <h2>Ejercicios básicos</h2>
+      <div class="panel">
+        <button onclick="HolaMundo()">Hola mundo</button>
+        <button onclick="SaludoPersonalizado()">Saludo personalizado</button>
+        <button onclick="SumaDosNumeros()">Suma de dos números</button>
+        <button onclick="EdadMayorMenor()">Edad mayor o menor</button>
+        <button onclick="ParImpar()">Par o impar</button>
+        <button onclick="TresNumeros()">Tres números mayor/menor</button>
+        <button onclick="NotaDiez()">Nota del 1 al 10</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>Bucles y condiciones</h2>
+      <div class="panel">
+        <button onclick="Pares1a20()">Mostrar pares 1-20</button>
+        <button onclick="VerificarContrasena()">Verificar contraseña</button>
+        <button onclick="SumarHastaCero()">Suma hasta 0</button>
+        <button onclick="CalculadoraSimple()">Calculadora simple</button>
+        <button onclick="MiniMenu()">Mini menú</button>
+        <button onclick="AdivinarNumero()">Adivinar número</button>
+        <button onclick="ContarPares()">Contar pares ingresados</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>Arrays</h2>
+      <div class="panel">
+        <button onclick="ArrayNombres()">Array de 5 nombres</button>
+        <button onclick="RecorrerArray()">Recorrer array con for</button>
+        <button onclick="MayorMenorArray()">Mayor y menor de un array</button>
+        <button onclick="PromedioNotas()">Promedio de notas</button>
+        <button onclick="NombresHastaSalir()">Pedir nombres hasta salir</button>
+        <button onclick="LongitudArray()">Longitud de array</button>
+        <button onclick="ParesArray()">Mostrar pares de array</button>
+        <button onclick="BuscarFruta()">Buscar fruta con includes()</button>
+        <button onclick="PopArray()">Eliminar último con pop()</button>
+        <button onclick="PushArray()">Agregar elementos con push()</button>
+      </div>
+    </section>
+
+    <script src="ej9.js"></script>
+  </body>
+</html>
