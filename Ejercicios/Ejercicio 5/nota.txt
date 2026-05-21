@@ -1,0 +1,3 @@
+7
+
+Hay que seguir profundizando en los estilos css, que se parescan mas a la imagen proporcionada.
