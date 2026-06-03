@@ -1,0 +1,558 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body-wrapper {
+    display: block;
+    font-family: 'Share Tech Mono', monospace;
+    background: #0a0a0a;
+    color: #00ff41;
+    padding: 0;
+  }
+
+  .page {
+    background: #0a0a0a;
+    min-height: 600px;
+    padding: 0;
+    font-family: 'Share Tech Mono', monospace;
+    color: #00ff41;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scanlines {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.15) 2px,
+      rgba(0,0,0,0.15) 4px
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .content { position: relative; z-index: 2; }
+
+  .header {
+    background: #111;
+    border-bottom: 2px solid #00ff41;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-family: 'Orbitron', monospace;
+    font-size: 22px;
+    font-weight: 900;
+    color: #00ff41;
+    text-shadow: 0 0 8px #00ff41;
+    letter-spacing: 2px;
+  }
+
+  .logo span { color: #ff3300; }
+
+  .status-bar {
+    font-size: 11px;
+    color: #00ff41;
+    display: flex;
+    gap: 16px;
+  }
+
+  .status-dot {
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #00ff41;
+    margin-right: 5px;
+    animation: blink 1.2s infinite;
+  }
+
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+  .nav {
+    background: #0d0d0d;
+    border-bottom: 1px solid #1a3a1a;
+    padding: 8px 24px;
+    display: flex;
+    gap: 20px;
+    font-size: 12px;
+  }
+
+  .nav a {
+    color: #00aa2a;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 4px 8px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+
+  .nav a:hover { border-color: #00ff41; color: #00ff41; }
+
+  .hero {
+    background: #0d0d0d;
+    border: 1px solid #1a3a1a;
+    margin: 20px 20px 0;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .hero-badge {
+    background: #ff3300;
+    color: #fff;
+    font-family: 'Orbitron', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+  }
+
+  .hero-text { font-size: 13px; color: #aaffaa; line-height: 1.5; }
+  .hero-text strong { color: #00ff41; }
+
+  .ticker {
+    background: #001a00;
+    border-top: 1px solid #00ff41;
+    border-bottom: 1px solid #00ff41;
+    margin: 16px 20px;
+    padding: 6px 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .ticker-inner {
+    display: flex;
+    white-space: nowrap;
+    animation: ticker 18s linear infinite;
+    font-size: 11px;
+    color: #00cc33;
+    gap: 0;
+  }
+
+  @keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+  .ticker-item { padding: 0 32px; }
+  .ticker-item .ok { color: #00ff41; font-weight: bold; }
+  .ticker-item .warn { color: #ffaa00; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 0 20px;
+    margin-bottom: 16px;
+  }
+
+  .cheat-card {
+    background: #0d0d0d;
+    border: 1px solid #1a3a1a;
+    padding: 18px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+
+  .cheat-card:hover { border-color: #00ff41; }
+
+  .cheat-card .card-label {
+    position: absolute;
+    top: 12px; right: 12px;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  .label-free { background: #003300; color: #00ff41; border: 1px solid #00ff41; }
+  .label-hot { background: #3a0000; color: #ff3300; border: 1px solid #ff3300; }
+  .label-new { background: #1a1a00; color: #ffaa00; border: 1px solid #ffaa00; }
+  .label-ud { background: #001a3a; color: #00aaff; border: 1px solid #00aaff; }
+
+  .card-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    color: #00ff41;
+    margin-bottom: 6px;
+    padding-right: 60px;
+  }
+
+  .card-desc {
+    font-size: 11px;
+    color: #557755;
+    margin-bottom: 14px;
+    line-height: 1.6;
+  }
+
+  .features {
+    list-style: none;
+    margin-bottom: 14px;
+  }
+
+  .features li {
+    font-size: 11px;
+    color: #00aa33;
+    padding: 2px 0;
+  }
+
+  .features li::before { content: '▶ '; color: #00ff41; }
+
+  .stats-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+    font-size: 10px;
+    color: #446644;
+  }
+
+  .stat-val { color: #00cc33; font-weight: bold; }
+
+  .dl-btn {
+    width: 100%;
+    background: #001a00;
+    border: 1px solid #00ff41;
+    color: #00ff41;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    padding: 10px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .dl-btn:hover {
+    background: #00ff41;
+    color: #000;
+  }
+
+  .dl-btn:active { transform: scale(0.98); }
+
+  .dl-btn.red { border-color: #ff3300; color: #ff3300; background: #1a0000; }
+  .dl-btn.red:hover { background: #ff3300; color: #fff; }
+
+  .dl-btn.amber { border-color: #ffaa00; color: #ffaa00; background: #1a1200; }
+  .dl-btn.amber:hover { background: #ffaa00; color: #000; }
+
+  .progress-bar {
+    width: 100%;
+    height: 4px;
+    background: #111;
+    border: 1px solid #1a3a1a;
+    border-radius: 2px;
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: #00ff41;
+    width: 0%;
+    transition: width 0.4s;
+  }
+
+  .progress-label {
+    font-size: 10px;
+    color: #446644;
+    margin-bottom: 8px;
+    display: none;
+  }
+
+  .footer-bar {
+    background: #050505;
+    border-top: 1px solid #1a3a1a;
+    margin: 0 20px;
+    padding: 12px 0;
+    display: flex;
+    gap: 24px;
+    font-size: 10px;
+    color: #335533;
+    flex-wrap: wrap;
+  }
+
+  .footer-bar .ok { color: #00ff41; }
+
+  .disclaimer {
+    margin: 12px 20px 20px;
+    background: #0d0d0d;
+    border: 1px solid #1a1a00;
+    padding: 12px 16px;
+    font-size: 10px;
+    color: #444422;
+    line-height: 1.6;
+    border-left: 3px solid #ffaa00;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: #001500;
+    border: 1px solid #00ff41;
+    color: #00ff41;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;
+    padding: 10px 20px;
+    border-radius: 2px;
+    z-index: 999;
+    transition: transform 0.3s;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+
+<div class="page">
+  <div class="scanlines"></div>
+  <div class="content">
+
+    <div class="header">
+      <div class="logo">CS2<span>HACK</span>.NET</div>
+      <div class="status-bar">
+        <span><span class="status-dot"></span>SERVIDOR ONLINE</span>
+        <span><span class="status-dot"></span>VAC BYPASS ACTIVO</span>
+        <span>USUARIOS: <span style="color:#ff3300">14,203</span></span>
+      </div>
+    </div>
+
+    <div class="nav">
+      <a>INICIO</a>
+      <a>AIMBOT</a>
+      <a>WALLHACK</a>
+      <a>SPINBOT</a>
+      <a>RADAR HACK</a>
+      <a>SKIN CHANGER</a>
+      <a>FORO</a>
+      <a style="color:#ff3300">⚡ PREMIUM</a>
+    </div>
+
+    <div class="hero">
+      <div class="hero-badge">🔥 NUEVO</div>
+      <div class="hero-text">
+        <strong>CS2 CHEAT PACK v9.1.3</strong> — Actualizado hoy · Compatible con última versión del juego · <strong>0 bans reportados</strong> en las últimas 48hs · Más de 14.000 usuarios activos.
+      </div>
+    </div>
+
+    <div class="ticker">
+      <div class="ticker-inner" id="ticker">
+        <span class="ticker-item"><span class="ok">✔</span> Matias_ARG descargó AIMBOT PRO</span>
+        <span class="ticker-item"><span class="ok">✔</span> xXSniper99Xx descargó WALLHACK FULL</span>
+        <span class="ticker-item"><span class="warn">⚡</span> Nuevo update disponible · VAC BYPASS 3.2</span>
+        <span class="ticker-item"><span class="ok">✔</span> GorditoBR descargó SPINBOT SUPREMO</span>
+        <span class="ticker-item"><span class="ok">✔</span> fer_kills descargó RADAR HACK</span>
+        <span class="ticker-item"><span class="warn">⚡</span> 312 descargas en la última hora</span>
+        <span class="ticker-item"><span class="ok">✔</span> Matias_ARG descargó AIMBOT PRO</span>
+        <span class="ticker-item"><span class="ok">✔</span> xXSniper99Xx descargó WALLHACK FULL</span>
+        <span class="ticker-item"><span class="warn">⚡</span> Nuevo update disponible · VAC BYPASS 3.2</span>
+        <span class="ticker-item"><span class="ok">✔</span> GorditoBR descargó SPINBOT SUPREMO</span>
+        <span class="ticker-item"><span class="ok">✔</span> fer_kills descargó RADAR HACK</span>
+        <span class="ticker-item"><span class="warn">⚡</span> 312 descargas en la última hora</span>
+      </div>
+    </div>
+
+    <div class="grid">
+
+      <div class="cheat-card">
+        <div class="card-label label-hot">🔥 HOT</div>
+        <div class="card-title">AIMBOT PRO MAX</div>
+        <div class="card-desc">El aimbot más suave del mercado. FOV configurable, smoothing, target bone selector y auto-shoot.</div>
+        <ul class="features">
+          <li>Smooth aim adjustable</li>
+          <li>Head / neck / chest selector</li>
+          <li>Auto triggerbot integrado</li>
+          <li>No recoil incluido</li>
+        </ul>
+        <div class="stats-row">
+          <span>Versión: <span class="stat-val">9.1.3</span></span>
+          <span>Descargas: <span class="stat-val">48,291</span></span>
+          <span>Detección: <span class="stat-val" style="color:#00ff41">0%</span></span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="p1"></div></div>
+        <div class="progress-label" id="pl1">Preparando descarga...</div>
+        <button class="dl-btn red" onclick="fakeDownload('p1','pl1',this)">
+          ⬇ DESCARGAR AIMBOT PRO
+        </button>
+      </div>
+
+      <div class="cheat-card">
+        <div class="card-label label-ud">UD</div>
+        <div class="card-title">WALLHACK ESP FULL</div>
+        <div class="card-desc">Ve a todos los enemigos a través de paredes. Cajas, HP, nombre, distancia y arma en pantalla.</div>
+        <ul class="features">
+          <li>ESP box 2D/3D</li>
+          <li>Barra de HP visible</li>
+          <li>Nombre + distancia</li>
+          <li>Radar en minimap</li>
+        </ul>
+        <div class="stats-row">
+          <span>Versión: <span class="stat-val">9.1.3</span></span>
+          <span>Descargas: <span class="stat-val">61,004</span></span>
+          <span>Detección: <span class="stat-val" style="color:#00ff41">0%</span></span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="p2"></div></div>
+        <div class="progress-label" id="pl2">Preparando descarga...</div>
+        <button class="dl-btn" onclick="fakeDownload('p2','pl2',this)">
+          ⬇ DESCARGAR WALLHACK
+        </button>
+      </div>
+
+      <div class="cheat-card">
+        <div class="card-label label-new">NEW</div>
+        <div class="card-title">SPINBOT SUPREMO</div>
+        <div class="card-desc">Rotación a 360° imposible de headshotearte. Incluye anti-aim y leg aim para sobrevivir todo.</div>
+        <ul class="features">
+          <li>Spin 360° configurable</li>
+          <li>Anti-aim integrado</li>
+          <li>Desync de hitbox</li>
+          <li>Modo fake lag</li>
+        </ul>
+        <div class="stats-row">
+          <span>Versión: <span class="stat-val">9.0.8</span></span>
+          <span>Descargas: <span class="stat-val">22,771</span></span>
+          <span>Detección: <span class="stat-val" style="color:#ffaa00">2%</span></span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="p3"></div></div>
+        <div class="progress-label" id="pl3">Preparando descarga...</div>
+        <button class="dl-btn amber" onclick="fakeDownload('p3','pl3',this)">
+          ⬇ DESCARGAR SPINBOT
+        </button>
+      </div>
+
+      <div class="cheat-card">
+        <div class="card-label label-free">FREE</div>
+        <div class="card-title">PACK COMPLETO v9</div>
+        <div class="card-desc">Todo en uno: aimbot + wallhack + spinbot + skin changer + radar + bhop. Instalador automático.</div>
+        <ul class="features">
+          <li>Aimbot + ESP + Spinbot</li>
+          <li>Skin changer gratis</li>
+          <li>Bhop automático</li>
+          <li>Loader con bypass integrado</li>
+        </ul>
+        <div class="stats-row">
+          <span>Versión: <span class="stat-val">9.1.3</span></span>
+          <span>Descargas: <span class="stat-val">103,558</span></span>
+          <span>Detección: <span class="stat-val" style="color:#00ff41">0%</span></span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="p4"></div></div>
+        <div class="progress-label" id="pl4">Preparando descarga...</div>
+        <button class="dl-btn" onclick="fakeDownload('p4','pl4',this)">
+          ⬇ DESCARGAR TODO EL PACK
+        </button>
+      </div>
+
+    </div>
+
+    <div class="footer-bar">
+      <span><span class="ok">●</span> Servidores: <span class="ok">ONLINE</span></span>
+      <span><span class="ok">●</span> VAC Bypass: <span class="ok">v3.2 ACTIVO</span></span>
+      <span><span class="ok">●</span> Último update: <span class="ok">HOY 03:47</span></span>
+      <span>Usuarios online: <span class="ok">14,203</span></span>
+      <span>Total descargas hoy: <span class="ok">8,921</span></span>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const mensajes = [
+  "Conectando con servidor ruso...",
+  "Bypasseando el VAC...",
+  "Descomprimiendo archivos...",
+  "Inyectando DLL...",
+  "Verificando licencia...",
+  "Listo, revisar carpeta Descargas!",
+];
+
+function fakeDownload(barId, labelId, btn) {
+  const bar = document.getElementById(barId);
+  const label = document.getElementById(labelId);
+  const fill = bar.querySelector('.progress-fill') || bar;
+  const fillEl = document.getElementById(barId).nextElementSibling ? 
+    document.getElementById(barId).previousElementSibling : null;
+
+  const progressFill = document.querySelector('#' + barId).previousElementSibling?.querySelector('.progress-fill') ||
+    document.getElementById(barId);
+
+  btn.disabled = true;
+  btn.textContent = '⏳ DESCARGANDO...';
+  label.style.display = 'block';
+
+  let pct = 0;
+  let msgIdx = 0;
+  const fills = document.querySelectorAll('.progress-fill');
+  let targetFill;
+  const allBars = document.querySelectorAll('.progress-bar');
+  allBars.forEach((b, i) => {
+    if (b.querySelector('.progress-fill') && b.id !== barId) {}
+    const f = b.querySelector('.progress-fill');
+    if (f && b === document.getElementById(barId)) targetFill = f;
+  });
+
+  const bars = document.querySelectorAll('.progress-bar');
+  let myFill = null;
+  for (let b of bars) {
+    if (b.previousElementSibling && b.previousElementSibling.textContent.includes(btn.textContent.replace('⏳ DESCARGANDO...','').trim())) {
+      myFill = b.querySelector('.progress-fill');
+    }
+  }
+
+  const allFills = document.querySelectorAll('.progress-fill');
+  const allLabels = document.querySelectorAll('.progress-label');
+  const allBtns = document.querySelectorAll('.dl-btn');
+  let idx = Array.from(allBtns).indexOf(btn);
+  const myFillEl = allFills[idx];
+  const myLabel = allLabels[idx];
+
+  myLabel.style.display = 'block';
+
+  const interval = setInterval(() => {
+    pct += Math.random() * 14 + 3;
+    if (pct > 100) pct = 100;
+    myFillEl.style.width = pct + '%';
+
+    if (msgIdx < mensajes.length - 1 && pct > (msgIdx + 1) * 16) {
+      msgIdx++;
+      myLabel.textContent = mensajes[msgIdx];
+    }
+
+    if (pct >= 100) {
+      clearInterval(interval);
+      myLabel.textContent = '✔ Descarga completa!';
+      btn.textContent = '✔ DESCARGADO';
+      btn.style.background = '#003300';
+      showToast('✔ Archivo guardado en Descargas · cs2hack_v9.exe');
+      setTimeout(() => {
+        myFillEl.style.width = '0%';
+        myLabel.style.display = 'none';
+        btn.disabled = false;
+        btn.textContent = '⬇ DESCARGAR DE NUEVO';
+      }, 3500);
+    }
+  }, 180);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+</script>

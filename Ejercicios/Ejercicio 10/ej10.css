@@ -1,0 +1,15 @@
+.resaltado {
+    background-color: yellow;
+    color: red;
+}
+
+body {
+    background-color: white;
+    color: black;
+    transition: 0.3s;
+}
+
+body.oscuro {
+    background-color: #222;
+    color: white;
+}
