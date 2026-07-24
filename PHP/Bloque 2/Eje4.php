@@ -1,4 +1,5 @@
 <?php
+
 $minutos = 150;
 
 //el intdiv me lo recomedo la ia y ahi le agarre la mano a lo que es
